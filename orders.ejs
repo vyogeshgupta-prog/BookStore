@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="Cart.css">
+</head>
+<body>
+    <div class="navbar">
+        <img src="logo.png">
+        <nav>
+            <ul>
+                <li class="search"><form action="/Welcome" method="post" class="search-bar">
+                    <input type="hidden" name="formType" value="search">
+                    <input type="text" placeholder="Type to Search" name="bname">
+                    <button type="submit">Search</button>
+                </form></li>
+                <li><a href="/"><button type="button" class="btn js-trigger-transition">Logout</button></a></li>
+                <li><a href="/welcome"><button type="button" class="btn js-trigger-transition">Shop</button></a></li>
+                <li><a href="/cart"><button type="button" class="btn js-trigger-transition">Cart</button></a></li>
+                <li><a href="/orders"><button type="button" class="btn js-trigger-transition">Orders</button></a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="loader">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+        <div class="bar4"></div>
+        <div class="bar5"></div>
+        <div class="bar6"></div>
+      </div>
+      
+    <div id="gallery">
+        <% if (sampleData.length>0){
+            i=1;
+            sampleData.forEach(function(data){
+                %>
+                <div id="content">
+                <form action="/orders" method="POST" id="form<%=i%>">
+                    <img src="data:img/jpg;base64,<%=data.imgHERE%>">
+                    <input type="hidden" name="bname" value="<%=data.bname%>"><br>
+                    <h3>Qty:<%=data.Qty%></h3>
+                    <h3><%=data.bname%></h3>
+                    <h3>Category:<%=data.category%></h3>
+                    <h3>Author:<%=data.author%></h3>
+                    <h6><%=data.price%></h6>
+                <input type="hidden" name="formType" value="remove-from-orders">
+                <button type="submit">Cancel Order</button>
+                </form>
+                </div>
+            <%i+=1;});
+        }
+        else{%>
+            <h3>Grab the Best deals before Expiry</h3>
+            <a href="/welcome"><button type="button" class="btn js-trigger-transition">Shop Now</button>
+        <%}%>
+    </div>
+    <form action="/orders" method="POST">
+    <input type="hidden" name="formType" value="cancel-all">
+    <button type="submit">Cancel All</button>
+    </form>
+    <script src="app.js"></script>
+    <script src="transition.js"></script>
+</body>
+</html>
